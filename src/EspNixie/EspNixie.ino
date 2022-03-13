@@ -1,6 +1,6 @@
 /**
- * Use 2.6.3 esp8266 core
- * lwip 1.4 Higher bandwidth; CPU 160 MHz
+ * Use 2.6.3 esp8266 core (3.0+ -> do not work)
+ * lwip v2 Higher bandwidth; CPU 160 MHz
  * 1M (128K)
  * 
  * to migrate to 2.7.0+ see config time changes: https://github.com/esp8266/Arduino/issues/7353
@@ -34,6 +34,7 @@
 IPAddress ip(192, 168, 1, 130); //Node static IP
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
+IPAddress dnsAddr(192, 168, 1, 1);
 
 #define TASK_UPDATE_PERIOD 50
 
@@ -283,7 +284,7 @@ void setup() {
   WiFi.mode(WIFI_STA);
 
   WiFi.begin(AP_SSID, AP_PASSWORD);
-  WiFi.config(ip, gateway, subnet);
+  WiFi.config(ip, gateway, subnet, dnsAddr);
 
   tw->addPeriodicalTask(0, 200, []() {
     show_connecting_progress();

@@ -67,4 +67,5 @@ uint16_t HistoryObservation::getDayValue(uint32_t time){
 		
 		return tmp.avg();
 	}
+ return 0;
 }

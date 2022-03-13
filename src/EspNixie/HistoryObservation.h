@@ -23,7 +23,7 @@ struct _current_history {
     return 0;
 	}
 	
-	uint16_t reset(){
+	void reset(){
 		sum = 0;
 		cnt = 0;
 	}

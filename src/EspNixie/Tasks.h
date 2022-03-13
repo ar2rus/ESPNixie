@@ -113,7 +113,7 @@ class TaskWrapper {
      * вызов задачи, завершение выполнения которой будет выполнено через duration 
      */
     int8_t callContinuousTask(uint32_t duration, void (*execute)()) {
-      callContinuousTask(duration, NULL, execute);
+      return callContinuousTask(duration, NULL, execute);
     }
 
 
@@ -121,7 +121,7 @@ class TaskWrapper {
      * вызов задачи, завершение выполнения которой определяется функцией available
      */
     int8_t callContinuousTask(uint8_t (*available)(), void (*execute)()) {
-      callContinuousTask(0, available, execute);
+      return callContinuousTask(0, available, execute);
     }
 
     /**
@@ -129,7 +129,7 @@ class TaskWrapper {
      * возможен только вызовом callContinuousTask еще раз
      */
     int8_t callContinuousTask(void (*execute)()) {
-      callContinuousTask(0, NULL, execute);
+      return callContinuousTask(0, NULL, execute);
     }
 
     int8_t addContinuousTask(uint32_t duration, uint8_t (*available)(), void (*execute)()) {
