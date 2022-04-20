@@ -27,11 +27,11 @@
 #define MIN_REQUEST_PERIOD 1*60*1000
 
 //время ожидания ответа
-#define RESPONSE_TIMEOUT 10 * 1000
+#define RESPONSE_TIMEOUT 2 * 1000
 
 //максимальное время использования полученного
 //значения температуры
-#define T_MAX_TIME 60*60*1000
+#define T_MAX_TIME 30*60*1000
 
 //максимальное время использования полученного
 //значения влажности
@@ -39,7 +39,7 @@
 
 //максимальное время использования полученного
 //значения давления
-#define P_MAX_TIME 3*60*60*1000
+#define P_MAX_TIME 1*60*60*1000
 
 #define REQUEST_DEVICES_LIMIT 20
 #define SENSOR_COUNT_LIMIT REQUEST_DEVICES_LIMIT * 3
@@ -104,10 +104,7 @@ private:
 
     device d;
     
-public:
-    //just for debug
-    String response;
-    
+public:   
     Narodmon(String device_id);
 
     void setConfigUseLatLng(uint8_t use);
@@ -149,8 +146,12 @@ enum LoggingLevel {
 };
 
 class LoggingClass {
+  private:
+    boolean _enabled;
   public:
-    LoggingClass() {};
+    LoggingClass(boolean enabled=false) {
+      _enabled = enabled;
+    };
   
     String _response;
     String _error;

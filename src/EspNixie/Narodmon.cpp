@@ -12,12 +12,15 @@
 LoggingClass Logging;
 
 void LoggingClass::log(LoggingLevel level, const char *fmt, ...){
+  if (!_enabled){
+    return;
+  }
 
   //static const char *logLevelPrefixes[] = { "D", "I", "E"};
 
   //_stream.print(logLevelPrefixes[level]);
   //_stream.print(" ");
-/*
+
   String* s = NULL;
   switch (level){
     case LoggingLevelError:
@@ -38,7 +41,7 @@ void LoggingClass::log(LoggingLevel level, const char *fmt, ...){
     va_end(fmtargs);
     *s += tmp;
     *s += "\r\n";
-  }*/
+  }
 }
 
 
@@ -164,7 +167,7 @@ uint8_t Narodmon::request(){
         String jsonRequest;
         serializeJson(request, jsonRequest);
         
-        DEBUG("Request: %s", jsonRequest.c_str());
+        DEBUG("Request[%u]: %s", jsonRequest.length(), jsonRequest.c_str());
 
         values_cnt = 0;
         parser.reset();
@@ -176,11 +179,9 @@ uint8_t Narodmon::request(){
         client->write("Content-Type: application/json\r\n");
         client->write("Cache-Control: no-cache\r\n");
         client->write("User-Agent: esp-nixie\r\n");
-
         client->write("Content-Length: "); client->write(String(jsonRequest.length()).c_str()); client->write("\r\n");
         client->write("\r\n");
         client->write(jsonRequest.c_str(), jsonRequest.length());
-        client->write("\r\n");
 
         request_time = tmp_t;
 

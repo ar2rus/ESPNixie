@@ -225,7 +225,7 @@ void config_modes(uint32_t clock_duration, uint32_t t_duration, uint32_t p_durat
     insideTermometerRequest();
   });
 
-  tw->addPeriodicalTask(10000, 120000, []() {
+  tw->addPeriodicalTask(10000, 150000, []() {
     nm->request();
   });
 
@@ -301,9 +301,14 @@ void setup() {
     request->send(200, "text/plain", String(ESP.getFreeHeap()));
   });
 
-  server.on("/narodmon", HTTP_GET, [](AsyncWebServerRequest * request) {
+  server.on("/narodmon_r", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(200, "text/plain", Logging._response);
   });
+
+server.on("/narodmon_e", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(200, "text/plain", Logging._error);
+  });
+
 
   server.on("/error", HTTP_GET, [](AsyncWebServerRequest * request) {
     request->send(200, "text/plain", Logging._error);
@@ -532,7 +537,7 @@ void setup() {
   insideTermometerInit();
   config_time(4, 0, "pool.ntp.org", "time.nist.gov", NULL);
   config_narodmon("9M5UhuQA2c8f8", 1, 53.2266, 50.1915, 5);
-  config_modes(10000, 5000, 5000, 0, 0);
+  config_modes(7000, 3000, 3000, 0, 0);
   
   INFO("Setup done");
 }
