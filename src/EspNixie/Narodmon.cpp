@@ -245,6 +245,7 @@ void Narodmon::key(String key) {
 }
 
 void Narodmon::value(String value) {
+  DEBUG("%s: %s", parser_key.c_str(), value.c_str());
   if (parser_key.equals("value")){
     values[values_cnt].value = (int)(value.toFloat()*10);
   }else if (parser_key.equals("type")){
@@ -260,6 +261,7 @@ void Narodmon::endArray() {
 
 void Narodmon::endObject() {
   if (values[values_cnt].type >= 0 && values[values_cnt].value != VALUE_NONE){
+    DEBUG("%u------------", values_cnt);
     if (values_cnt < SENSOR_COUNT_LIMIT){
       values_cnt++;
       startObject();

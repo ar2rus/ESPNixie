@@ -31,10 +31,10 @@
 
 #define SYSTEM_LEDS_BRIGHTNESS 50
 
-IPAddress ip(192, 168, 1, 130); //Node static IP
-IPAddress gateway(192, 168, 1, 1);
+IPAddress ip(192, 168, 3, 130); //Node static IP
+IPAddress gateway(192, 168, 3, 1);
 IPAddress subnet(255, 255, 255, 0);
-IPAddress dnsAddr(192, 168, 1, 1);
+IPAddress dnsAddr(192, 168, 3, 1);
 
 #define TASK_UPDATE_PERIOD 50
 
@@ -536,7 +536,7 @@ server.on("/narodmon_e", HTTP_GET, [](AsyncWebServerRequest * request) {
 
   insideTermometerInit();
   config_time(4, 0, "pool.ntp.org", "time.nist.gov", NULL);
-  config_narodmon("9M5UhuQA2c8f8", 1, 53.2266, 50.1915, 5);
+  config_narodmon("9M5UhuQA2c8f8", 1, 53.2167, 50.1857, 10);
   config_modes(7000, 3000, 3000, 0, 0);
   
   INFO("Setup done");
